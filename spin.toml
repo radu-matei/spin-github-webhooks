@@ -1,0 +1,17 @@
+spin_version = "1"
+authors = ["Radu Matei <radu.matei@fermyon.com>"]
+description = ""
+name = "spin-github-webhooks"
+trigger = { type = "http", base = "/" }
+version = "0.1.0"
+
+[[component]]
+id = "spin-github-webhooks"
+source = "target/spin-http-js.wasm"
+exclude_files = ["**/node_modules"]
+files = ["settings.json"]
+allowed_http_hosts = ["https://hooks.slack.com"]
+[component.trigger]
+route = "/..."
+[component.build]
+command = "npm run build"

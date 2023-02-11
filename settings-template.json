@@ -1,0 +1,4 @@
+{
+  "payloadSecret": "<GitHub secret payload>",
+  "slackWebhookUrl": "https://hooks.slack.com/services/<Slack inbound webhook URL>"
+}
