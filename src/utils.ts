@@ -1,6 +1,8 @@
 import { HttpRequest } from "@fermyon/spin-sdk";
 import { MessageAttachment } from "@slack/types";
 
+let encoder = new TextEncoder();
+
 export interface Settings {
   slackWebhookUrl: string;
   payloadSecret: string,
@@ -28,7 +30,7 @@ export async function sendToSlack(
 // Function to verify the signature of the GitHub webhook payload.
 export function verifySignature(req: HttpRequest, secret: string): boolean {
   const signature = req.headers["x-hub-signature-256"];
-  if (signature === "") {
+  if (signature === "" || signature === undefined) {
     return false;
   }
 
@@ -40,8 +42,7 @@ export function verifySignature(req: HttpRequest, secret: string): boolean {
   hmac.update(new Uint8Array(req.body))
   const computed = "sha256=" + Array.from(new Uint8Array(hmac.digest())).map((b) => b.toString(16).padStart(2, '0')).join('');
 
-  // Update this to a constant time compare once we implement https://github.com/fermyon/spin-js-sdk/issues/118
-  return computed === signature;
+  return crypto.timingSafeEqual(encoder.encode(signature).buffer, encoder.encode(computed).buffer)
 }
 
 

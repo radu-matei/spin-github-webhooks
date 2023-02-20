@@ -25,7 +25,6 @@ export const handleRequest: HandleRequest = async function(request: HttpRequest)
     case "fork":
       return await handleForkEvent(request, settings)
 
-
     default:
       return {
         status: 200,
