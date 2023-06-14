@@ -5,13 +5,23 @@ name = "spin-github-webhooks"
 trigger = { type = "http", base = "/" }
 version = "0.1.0"
 
+[variables]
+slack_webhook_url = { required = true }
+payload_secret = { required = true }
+
 [[component]]
 id = "spin-github-webhooks"
 source = "target/spin-http-js.wasm"
 exclude_files = ["**/node_modules"]
 files = ["settings.json"]
 allowed_http_hosts = ["https://hooks.slack.com"]
+
+[component.config]
+slack_webhook_url = "{{ slack_webhook_url }}"
+payload_secret = "{{ payload_secret }}"
+
 [component.trigger]
 route = "/..."
 [component.build]
 command = "npm run build"
+watch = ["src/**/*.ts", "package.json"]

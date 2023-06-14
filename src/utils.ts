@@ -48,6 +48,8 @@ export function verifySignature(req: HttpRequest, secret: string): boolean {
 
 // Helper function to retrieve the application configuration.
 export async function getSettings(): Promise<Settings> {
-  let buffer = await fsPromises.readFile("settings.json");
-  return JSON.parse(new TextDecoder().decode(new Uint8Array(buffer))) as Settings;
+  return {
+    slackWebhookUrl: spinSdk.config.get("slack_webhook_url"),
+    payloadSecret: spinSdk.config.get("payload_secret")
+  }
 }

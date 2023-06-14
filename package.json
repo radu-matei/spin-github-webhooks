@@ -3,10 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "npx webpack --mode=production && mkdir -p target && spin js2wasm -o target/spin-http-js.wasm dist/spin.js",
-    "watch": "nodemon --watch src --ext ts,js --verbose --legacy-watch --signal SIGINT --exec 'spin build && spin up --file spin.toml --follow-all'"
+    "build": "npx webpack --mode=production && mkdir -p target && spin js2wasm -o target/spin-http-js.wasm dist/spin.js"
   },
-  "license": "ISC",
   "devDependencies": {
     "@fermyon/spin-sdk": "^0.4.0",
     "@octokit/webhooks-types": "^6.10.0",

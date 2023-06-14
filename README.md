@@ -11,15 +11,14 @@ in TypeScript using Spin and Fermyon Cloud.
 - free [GitHub](https://github.com) and [Slack](https://slack.com) accounts
 - a free [Fermyon Cloud](https://cloud.fermyon.com) account
 
-Create a `settings.json` file using the [Slack webhook URL](https://api.slack.com/messaging/webhooks)
-based on the template in `settings-template.json`, then build and deploy the
-application to [Fermyon Cloud](https://fermyon.com/cloud):
+When running or deploying, you need to set the [Slack webhook URL](https://api.slack.com/messaging/webhooks)
+and the [GitHub payload secret](https://docs.github.com/en/webhooks-and-events/webhooks/securing-your-webhooks)
+as configuration variables. See `spin.toml` and [the documentation for config](https://developer.fermyon.com/cloud/variables).
 
 ```bash
 $ npm install
 $ spin build
-$ spin deploy
-$ spin deploy
+spin deploy --variable payload_secret=$PAYLOAD_SECRET --variable slack_webhook_url=$SLACK_WEBHOOK_URL
 Uploading github-stars-webhook version 0.1.0+r6ed768d9...
 Deploying...
 Waiting for application to become ready...... ready
@@ -32,4 +31,3 @@ using the URL returned by the `spin deploy` command.
 Then, on every star event, the application will send a message to your
 configured Slack channel:
 
-![Slack message](./docs/slack-message.png)
